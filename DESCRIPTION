@@ -8,8 +8,7 @@ Maintainer: Andrew Zammit-Mangion <andrewzm@gmail.com>
 Description: Several linalg tools to interface with Timothy Davis SparseSuite
     package and other useful functions
 Depends:
-    R (>= 2.14),
-    Matrix
+    R (>= 2.14)
 Imports:
     Matrix
 License: GPL (>= 2)
