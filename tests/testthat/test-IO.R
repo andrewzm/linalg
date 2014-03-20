@@ -1,6 +1,5 @@
 context("input-output operations")
 test_that("output is correct for a given input", {
-  require(Matrix)
   Q = sparseMatrix(i=c(1,1,2,2),j=c(1,2,1,2),x=c(0.1,0.2,0.2,1))
   X <- cholPermute(Q)
   S_partial = Takahashi_Davis(Q,cholQp = X$Qpermchol,P=X$P)
