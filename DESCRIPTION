@@ -12,6 +12,7 @@ Depends:
 Imports:
     Matrix
 Suggests:
-    testthat
+    testthat,
+    R.matlab
 License: GPL (>= 2)
 NeedsCompilation: yes
