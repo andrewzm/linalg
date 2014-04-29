@@ -248,7 +248,7 @@ Zeromat <- function(ni,nj=NULL) {
   if ((ni == 0) | (nj == 0)) {
     return(NULL)
   } else {
-    return(sparseMatrix(i={},j={},dims=c(ni,nj))
+    return(sparseMatrix(i={},j={},dims=c(ni,nj)))
   }
 }
 
