@@ -245,11 +245,7 @@ Imat <- function(n) {
 #' Q <- Zeromat(2,5)
 Zeromat <- function(ni,nj=NULL) {
   if(is.null(nj)) nj <- ni
-  if ((ni == 0) | (nj == 0)) {
-    return(NULL)
-  } else {
-    return(as(sparseMatrix(i={},j={},dims=c(ni,nj)),"dgCMatrix"))
-  }
+   return(as(sparseMatrix(i={},j={},dims=c(ni,nj)),"dgCMatrix"))
 }
 
 
