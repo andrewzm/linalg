@@ -43,7 +43,7 @@ find_pivot_Bastos <- function(A) {
 #' require(Matrix)
 #' cholPermute(sparseMatrix(i=c(1,1,2,2),j=c(1,2,1,2),x=c(0.1,0.2,0.2,1)))
 #' @references Havard Rue and Leonhard Held (2005). Gaussian Markov Random Fields: Theory and Applications. Chapman & Hall/CRC Press
-cholPermute <- function(Q,method="amd",matlab_server=NULL)  {
+cholPermute <- function(Q,method="spam",matlab_server=NULL)  {
   n <- nrow(Q)
   
   if(method == "amd") {
@@ -55,7 +55,10 @@ cholPermute <- function(Q,method="amd",matlab_server=NULL)  {
       Qpermchol  <- t(chol(Qp))
     }
     P <- sparseMatrix(i=P,j=1:n,x=1)
+    return(list(Qpermchol=Qpermchol,P=P))
     
+  } else if (method == "spam")   {
+    return(spam_chol(Q))
     
   } else {
     e <-tryCatch({ symchol <- Cholesky(Q)},error= function(temp) {print("Cholesky failed, coercing to symmetric")},finally="Cholesky successful")
@@ -70,9 +73,9 @@ cholPermute <- function(Q,method="amd",matlab_server=NULL)  {
     if (class(e) == "character")  {
       Qpermchol <- t(chol(forceSymmetric(t(P)%*%Q%*%P)))
     } else { Qpermchol <- t(chol(t(P)%*%Q%*%P)) }
-    
+    return(list(Qpermchol=Qpermchol,P=P))
   }
-  return(list(Qpermchol=Qpermchol,P=P))
+  
 }
 
 #' @title Solve the equation Qx = y
@@ -346,6 +349,17 @@ amd_test <- function() {
   X <- .C("AMD_order_wrapper",as.integer(n),as.integer(Ap),as.integer(Ai),
           P = integer(n), Control=double(5),Info=double(20))
 }
+
+
+# Find cholPermute using the spam package
+.spam_chol <- function(Q) {
+  Qspam <- as.spam.dgCMatrix(Q)
+  X  <- spam::chol(Qspam)
+  P <- sparseMatrix(i=X@pivot,j=1:nrow(X),x=1)
+  Qpermchol <- as.dgCMatrix.spam(t(X))
+  return(list(Qpermchol = Qpermchol,P=P))
+}
+
 
 cholMATLAB <- function(Q,matlab_server) {
   Q <- as(Q,"dgTMatrix")
