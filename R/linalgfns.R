@@ -43,7 +43,7 @@ find_pivot_Bastos <- function(A) {
 #' require(Matrix)
 #' cholPermute(sparseMatrix(i=c(1,1,2,2),j=c(1,2,1,2),x=c(0.1,0.2,0.2,1)))
 #' @references Havard Rue and Leonhard Held (2005). Gaussian Markov Random Fields: Theory and Applications. Chapman & Hall/CRC Press
-cholPermute <- function(Q,method="spam",matlab_server=NULL)  {
+cholPermute <- function(Q,method="amd",matlab_server=NULL)  {
   n <- nrow(Q)
   
   if(method == "amd") {
