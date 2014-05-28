@@ -357,7 +357,7 @@ amd_test <- function() {
     X  <- spam::chol(Qspam)
   }
   P <- sparseMatrix(i=X@pivot,j=1:nrow(X),x=1)
-  Qpermchol <- as.dgCMatrix.spam(t(X))
+  Qpermchol <- as(as.dgCMatrix.spam(t(X)),"dtCMatrix")
   return(list(Qpermchol = Qpermchol,P=P))
 }
 
