@@ -43,7 +43,7 @@ find_pivot_Bastos <- function(A) {
 #' require(Matrix)
 #' cholPermute(sparseMatrix(i=c(1,1,2,2),j=c(1,2,1,2),x=c(0.1,0.2,0.2,1)))
 #' @references Havard Rue and Leonhard Held (2005). Gaussian Markov Random Fields: Theory and Applications. Chapman & Hall/CRC Press
-cholPermute <- function(Q,method="amd",matlab_server=NULL)  {
+cholPermute <- function(Q,method="spam",matlab_server=NULL)  {
   n <- nrow(Q)
   
   if(method == "amd") {
@@ -348,9 +348,14 @@ amd_test <- function() {
 
 
 # Find cholPermute using the spam package
-.spam_chol <- function(Q) {
+.spam_chol <- function(Q,amd=T) {
   Qspam <- as.spam.dgCMatrix(Q)
-  X  <- spam::chol(Qspam)
+  if(amd) {
+    P <- linalg:::amd_Davis(Q)
+    X  <- spam::chol(Qspam,pivot=P)
+  } else {
+    X  <- spam::chol(Qspam)
+  }
   P <- sparseMatrix(i=X@pivot,j=1:nrow(X),x=1)
   Qpermchol <- as.dgCMatrix.spam(t(X))
   return(list(Qpermchol = Qpermchol,P=P))
