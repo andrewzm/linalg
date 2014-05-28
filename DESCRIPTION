@@ -10,7 +10,8 @@ Description: Several linalg tools to interface with Timothy Davis SparseSuite
 Depends:
     R (>= 2.14)
 Imports:
-    Matrix
+    Matrix,
+	spam
 Suggests:
     testthat,
     R.matlab

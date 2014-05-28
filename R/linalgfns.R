@@ -58,7 +58,7 @@ cholPermute <- function(Q,method="spam",matlab_server=NULL)  {
     return(list(Qpermchol=Qpermchol,P=P))
     
   } else if (method == "spam")   {
-    return(spam_chol(Q))
+    return(.spam_chol(Q))
     
   } else {
     e <-tryCatch({ symchol <- Cholesky(Q)},error= function(temp) {print("Cholesky failed, coercing to symmetric")},finally="Cholesky successful")
