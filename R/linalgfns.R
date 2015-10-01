@@ -223,6 +223,7 @@ Takahashi_Davis <- function(Q,return_perm_chol = 0,cholQp = matrix(0,0,0),P=0) {
 #' @title Create an empty matrix
 #'
 #' @description Creates an empty sparse matrix of size 0 x 0
+#' @export
 #' @examples 
 #' require(Matrix)
 #' Q <- emptySp()
@@ -234,6 +235,7 @@ emptySp <- function() {
 #'
 #' @description Creates a sparse identity matrix of size n x n
 #' @param n size of matrix
+#' @export
 #' @examples 
 #' require(Matrix)
 #' Q <- Imat(4)
@@ -246,6 +248,7 @@ Imat <- function(n) {
 #' @description Creates an empty sparse matrix of size ni x nj
 #' @param ni number of rows
 #' @param nj number of columns. If NULL a square matrix is produced
+#' @export
 #' @examples 
 #' require(Matrix)
 #' Q <- Zeromat(2,5)
@@ -274,6 +277,7 @@ logdet <- function(L)  {
 #'
 #' @description Creates a sparse diagonal matrix of length(xx) where xx is the vector containing the elements on the diagonal
 #' @param xx diagonal vector
+#' @export
 #' @examples 
 #' require(Matrix)
 #' Q <- sparsediag(c(1,2,3,4))
